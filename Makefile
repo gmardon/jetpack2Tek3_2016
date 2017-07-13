@@ -7,6 +7,10 @@ SRC_COMMON			= 		src/my_malloc.c			\
 							src/socket_utils.c
 
 SRC_SERVER			=		src/server/main.c		\
+							src/server/configuration.c \
+							src/server/client.c		\
+							src/server/server_socket.c \
+							src/server/server.c		\
 							$(SRC_COMMON)
 
 SRC_CLIENT			=		src/client/main.c		  \

@@ -19,7 +19,7 @@ t_configuration		*init_configuration()
   config = my_malloc(sizeof(t_configuration));
   config->port = 4242;
   config->gravity = 100;
-  config->map = 42;
+  config->map = NULL;
   return (config);
 }
 
@@ -38,7 +38,6 @@ t_configuration		*parse_args(int argc, char *argv[])
       else if (opt == 'm')
 	      config->map = strdup(optarg);
     }
-  config->teams = parse_teams(first_team, argc, argv);
   validate_configuration(config);
   return (config);
 }
