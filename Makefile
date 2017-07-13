@@ -18,6 +18,7 @@ SRC_SERVER			=		src/server/main.c		\
 							src/server/commands/id_cmd.c \
 							src/server/commands/ready_cmd.c \
 							src/server/commands/map_cmd.c \
+							src/server/commands/fire_cmd.c \
 							src/server/gamemap.c \
 							$(SRC_COMMON)
 

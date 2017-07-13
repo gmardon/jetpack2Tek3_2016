@@ -58,30 +58,44 @@ void		handle_new_client(t_server *server, int *max)
         add_client(server, client);
     printf("New client connected from <%s:%d>\n",
         get_client_addr(client->in), get_client_port(client->in));
-    send_message(client, "WELCOME\n");
 }
 
-void start_server(t_server *server)
-{
-  int			max;
-  fd_set		read_fds;
-  t_clist		*tmp;
 
-  max = server->fd;
-  printf("start on port %d, waiting for connections...\n", server->configuration->port);
-  while (TRUE)
-    {
-      read_fds = server->master;
-      if (select(max + 1, &read_fds, NULL, NULL, NULL) == -1)
-	    my_error("select", -1);
-      if (FD_ISSET(server->fd, &read_fds))
-	    handle_new_client(server, &max);
-      tmp = server->client_list;
+void game_tick(t_server *server)
+{
+    t_clist		*tmp;
+    tmp = server->client_list;
       while (tmp != NULL)
         {
             if (FD_ISSET(tmp->client->fd, &read_fds))
                 handle_io(tmp->client, server);
             tmp = tmp->next;
         }
+}
+
+void start_server(t_server *server)
+{
+    int			max;
+    fd_set		read_fds;
+    t_clist		*tmp;
+    struct timeval	tv = {1, 0};
+
+    max = server->fd;
+    printf("start on port %d, waiting for connections...\n", server->configuration->port);
+    while (TRUE)
+    {
+        read_fds = server->master;
+        if (select(max + 1, &read_fds, NULL, NULL, &tv) == -1)
+            my_error("select", -1);
+        if (FD_ISSET(server->fd, &read_fds))
+            handle_new_client(server, &max);
+        tmp = server->client_list;
+        while (tmp != NULL)
+        {
+            if (FD_ISSET(tmp->client->fd, &read_fds))
+                handle_io(tmp->client, server);
+            tmp = tmp->next;
+        }
+        game_tick(server);
     }
 }

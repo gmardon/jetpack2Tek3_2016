@@ -28,6 +28,10 @@ typedef struct s_client
     int             id;
     int             state;
     int             score;
+    double          x;
+    double          y;
+    int             jetpack;
+    double		    velocity;
 }               t_client;
 
 typedef struct		s_clist
