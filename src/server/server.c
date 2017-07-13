@@ -8,6 +8,7 @@ t_server	*create_server(t_configuration *config)
   //server->client_list = NULL;
   server->configuration = config;
   server->max_id = 1;
+  server->gamemap = init_map(config->map);
   FD_ZERO(&server->master);
   FD_SET(server->fd, &server->master);
   return (server);
