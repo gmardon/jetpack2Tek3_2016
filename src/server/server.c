@@ -47,13 +47,13 @@ void		handle_new_client(t_server *server, int *max)
     if (client->fd > *max)
         *max = client->fd;
 
-    /*if (clients_length(server->client_list) >= server->max_clients)
+    if (clients_length(server->client_list) >= 2)
         {
-        send_message(client, "MAX USER REACHED\n");
-        close_client(client, server);
-        return;
+            send_message(client, "MAX USER REACHED\n");
+            close_client(client, server);
+            return;
         }
-    else*/
+    else
         add_client(server, client);
     printf("New client connected from <%s:%d>\n",
         get_client_addr(client->in), get_client_port(client->in));
