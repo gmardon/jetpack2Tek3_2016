@@ -1,6 +1,6 @@
 #include "server.h"
 
-int		add_client(t_server *server, t_client *client)
+int	add_client(t_server *server, t_client *client)
 {
     t_clist	*tmp;
     t_clist	*new;

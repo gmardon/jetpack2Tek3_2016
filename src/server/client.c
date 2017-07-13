@@ -6,7 +6,7 @@ void send_message(t_client *client, char *msg, ...)
   int		len;
   va_list	args;
 
-  content = my_malloc(40960);
+  content = my_malloc(BUFFER_SIZE);
   if (client->fd)
     {
       va_start(args, msg);

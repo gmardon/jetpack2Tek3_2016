@@ -4,7 +4,8 @@ NAME_CLIENT			=		clientJ2T3
 
 SRC_COMMON			= 		src/my_malloc.c			\
 							src/my_error.c			\
-							src/socket_utils.c
+							src/socket_utils.c		\
+							src/utils.c
 
 SRC_SERVER			=		src/server/main.c		\
 							src/server/configuration.c \
@@ -13,6 +14,7 @@ SRC_SERVER			=		src/server/main.c		\
 							src/server/server.c		\
 							src/server/client_list.c \
 							src/server/client_handler.c \
+							src/server/commands/id_cmd.c \
 							$(SRC_COMMON)
 
 SRC_CLIENT			=		src/client/main.c		  \
