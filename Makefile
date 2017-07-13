@@ -18,18 +18,18 @@ SRC_SERVER			=		src/server/main.c		\
 							src/server/commands/ready_cmd.c \
 							$(SRC_COMMON)
 
-SRC_CLIENT			=		src/client/main.c		  \
+SRC_CLIENT			=		src/client/window.c \
 							$(SRC_COMMON)
 
 OBJ_SERVER			=		$(SRC_SERVER:.c=.o)
 
 OBJ_CLIENT			=		$(SRC_CLIENT:.c=.o)
 
-CFLAGS			=		-W -Wall -Wextra -g -I./include/ -g
+CFLAGS			=		-W -Wall -Wextra -g -I./include/ -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
 
 all:			clientJ2T3 serverJ2T3
 
-serverJ2T3:			$(OBJ_SERVER) 
+serverJ2T3:			$(OBJ_SERVER)
 				gcc -o $(NAME_SERVER) $(OBJ_SERVER) $(CFLAGS) -lm
 
 clientJ2T3:			$(OBJ_CLIENT)
