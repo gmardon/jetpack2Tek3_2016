@@ -1,6 +1,5 @@
 #include "server.h"
 
-
 t_server	*create_server(t_configuration *config)
 {
   t_server	*server;
