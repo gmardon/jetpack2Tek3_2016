@@ -4,6 +4,9 @@
 #define FALSE 0
 #define BUFFER_SIZE 2048
 #include "jetpack.h"
+#define CLIENT_STATE_UNDEFINED 0
+#define CLIENT_STATE_CONNECTED 1
+#define CLIENT_STATE_READY 2
 
 typedef struct s_gamemap
 {
@@ -24,6 +27,7 @@ typedef struct s_client
     int			fd;
     struct sockaddr_in	in;
     int             id;
+    int             state;
 }               t_client;
 
 typedef struct		s_clist
@@ -64,4 +68,5 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server);
 
 // HANDLERS //
 int handle_id(char *cmd, t_client *client, t_server *server);
+int handle_ready(char *cmd, t_client *client, t_server *server);
 #endif

@@ -38,5 +38,6 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
   set_non_blocking(client->fd);
   client->in = in;
   client->id = server->max_id++;
+  client->state = CLIENT_STATE_CONNECTED;
   return (client);
 }

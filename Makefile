@@ -15,6 +15,7 @@ SRC_SERVER			=		src/server/main.c		\
 							src/server/client_list.c \
 							src/server/client_handler.c \
 							src/server/commands/id_cmd.c \
+							src/server/commands/ready_cmd.c \
 							$(SRC_COMMON)
 
 SRC_CLIENT			=		src/client/main.c		  \
