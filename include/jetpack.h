@@ -4,6 +4,15 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <netinet/in.h>
+#include <sys/stat.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <arpa/inet.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 void my_error(char *msg, int exit_code);
 void *my_malloc(int size);

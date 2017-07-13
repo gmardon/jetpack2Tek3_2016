@@ -11,6 +11,8 @@ SRC_SERVER			=		src/server/main.c		\
 							src/server/client.c		\
 							src/server/server_socket.c \
 							src/server/server.c		\
+							src/server/client_list.c \
+							src/server/client_handler.c \
 							$(SRC_COMMON)
 
 SRC_CLIENT			=		src/client/main.c		  \

@@ -25,6 +25,18 @@ void close_client(t_client *client, t_server *server)
       close(client->fd);
     }
   client->fd = 0;
-  printf("Client disconnected <%s:%d>\n",
-	 get_client_addr(client->in), get_client_port(client->in));
+  printf("Client disconnected <%s:%d>\n", 
+        get_client_addr(client->in), get_client_port(client->in));
+}
+
+t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
+{
+  t_client *client;
+
+  client = my_malloc(sizeof(t_client));
+  client->fd = socket;
+  set_non_blocking(client->fd);
+  client->in = in;
+  client->id = server->max_id++;
+  return (client);
 }
