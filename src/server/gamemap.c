@@ -10,7 +10,7 @@ void read_map(char *filepath, t_gamemap *gamemap)
     index = 0;
     fd = fileno(fopen(filepath, "r"));
     map = my_malloc(sizeof(char*) * 2 * (gamemap->height));
-    while (buffer = get_next_line(fd)) 
+    while ((buffer = get_next_line(fd))) 
     {
         map[index] = strdup(buffer);
         index++;
@@ -29,7 +29,7 @@ void retreive_map_size(char *filepath, t_gamemap *gamemap)
     height = 0;
     width = -1;
     fd = fileno(fopen(filepath, "r"));
-    while (buffer = get_next_line(fd)) 
+    while ((buffer = get_next_line(fd)))
     {
         if (width == -1)
             width = strlen(buffer);
@@ -44,4 +44,6 @@ t_gamemap *init_map(char *filepath)
     t_gamemap *gamemap = my_malloc(sizeof(t_gamemap));
     retreive_map_size(filepath, gamemap);
     read_map(filepath, gamemap);
+
+    return (gamemap);
 }
