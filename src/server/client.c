@@ -39,5 +39,8 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
   client->in = in;
   client->id = server->max_id++;
   client->state = CLIENT_STATE_CONNECTED;
+  client->jetpack = 0;
+  client->x = 0;
+  client->y = 0;
   return (client);
 }

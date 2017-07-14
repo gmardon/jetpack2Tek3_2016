@@ -2,7 +2,6 @@
 #define _SERVER_H_
 #define TRUE 1
 #define FALSE 0
-#define BUFFER_SIZE 2048
 #include "jetpack.h"
 #define CLIENT_STATE_UNDEFINED 0
 #define CLIENT_STATE_CONNECTED 1
@@ -28,6 +27,11 @@ typedef struct s_client
     struct sockaddr_in	in;
     int             id;
     int             state;
+    int             score;
+    double          x;
+    double          y;
+    int             jetpack;
+    double		    velocity;
 }               t_client;
 
 typedef struct		s_clist
@@ -69,4 +73,5 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server);
 // HANDLERS //
 int handle_id(char *cmd, t_client *client, t_server *server);
 int handle_ready(char *cmd, t_client *client, t_server *server);
+int handle_map(char *cmd, t_client *client, t_server *server);
 #endif
