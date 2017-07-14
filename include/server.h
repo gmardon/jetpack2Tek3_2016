@@ -74,4 +74,5 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server);
 int handle_id(char *cmd, t_client *client, t_server *server);
 int handle_ready(char *cmd, t_client *client, t_server *server);
 int handle_map(char *cmd, t_client *client, t_server *server);
+int handle_fire(char *cmd, t_client *client, t_server *server);
 #endif

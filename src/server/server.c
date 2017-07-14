@@ -65,12 +65,10 @@ void game_tick(t_server *server)
 {
     t_clist		*tmp;
     tmp = server->client_list;
-      while (tmp != NULL)
-        {
-            if (FD_ISSET(tmp->client->fd, &read_fds))
-                handle_io(tmp->client, server);
-            tmp = tmp->next;
-        }
+    while (tmp != NULL)
+    {
+        tmp = tmp->next;
+    }
 }
 
 void start_server(t_server *server)
