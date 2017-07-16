@@ -23,8 +23,8 @@ void close_client(t_client *client, t_server *server)
     {
       FD_CLR(client->fd, &server->master);
       close(client->fd);
+      remove_client(server, client->fd);
     }
-  client->fd = 0;
   printf("Client disconnected <%s:%d>\n", 
         get_client_addr(client->in), get_client_port(client->in));
 }

@@ -9,7 +9,7 @@ int handle_map(char *cmd, t_client *client, t_server *server)
 
     y = 0;
     index = 0;
-    cells = my_malloc((server->gamemap->height * server->gamemap->width) * sizeof(char));
+    cells = my_malloc((server->gamemap->height * server->gamemap->width) * (sizeof(char) + 1));
     while (y < server->gamemap->height)
     {
         x = 0;
