@@ -32,7 +32,7 @@ OBJ_CLIENT			=		$(SRC_CLIENT:.c=.o)
 
 CFLAGS			=		-W -Wall -Wextra -g -I./include/ -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
 
-all:			clientJ2T3 serverJ2T3
+all:			clientJ2T3 server
 
 server:			$(OBJ_SERVER)
 				gcc -o $(NAME_SERVER) $(OBJ_SERVER) $(CFLAGS) -lm
