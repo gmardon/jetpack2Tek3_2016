@@ -29,6 +29,26 @@ void close_client(t_client *client, t_server *server)
         get_client_addr(client->in), get_client_port(client->in));
 }
 
+void update_position(t_client *client, t_server *server)
+{
+  double	y;
+  double	vel;
+
+  client->velocity += server->configuration->gravity * -1 * (double)(client->jetpack * 2 - 1)
+    * (double)25000 / (double)1000000;
+  y = client->y;
+  y += client->velocity * (double) 25000 / (double)1000000;
+  vel = 0;
+  if (y < 0)
+    y = 0;
+  else if (y > server->gamemap->height - 1)
+    y = server->gamemap->height - 1;
+  else
+    vel = client->velocity;
+  client->velocity = vel;
+  client->y = y;
+}
+
 t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
 {
   t_client *client;

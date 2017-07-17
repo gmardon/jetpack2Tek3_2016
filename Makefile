@@ -20,6 +20,7 @@ SRC_SERVER			=		src/server/main.c		\
 							src/server/commands/map_cmd.c \
 							src/server/commands/fire_cmd.c \
 							src/server/gamemap.c \
+							src/server/game.c \
 							$(SRC_COMMON)
 
 SRC_CLIENT			=		src/client/window.c \

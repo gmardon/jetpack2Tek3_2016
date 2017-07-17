@@ -67,6 +67,7 @@ void game_tick(t_server *server)
     tmp = server->client_list;
     while (tmp != NULL)
     {
+        update_position(tmp, server);
         tmp = tmp->next;
     }
 }
