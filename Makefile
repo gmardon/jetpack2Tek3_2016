@@ -34,7 +34,7 @@ CFLAGS			=		-W -Wall -Wextra -g -I./include/ -lcsfml-graphics -lcsfml-window -lc
 
 all:			clientJ2T3 serverJ2T3
 
-serverJ2T3:			$(OBJ_SERVER)
+server:			$(OBJ_SERVER)
 				gcc -o $(NAME_SERVER) $(OBJ_SERVER) $(CFLAGS) -lm
 
 clientJ2T3:			$(OBJ_CLIENT)

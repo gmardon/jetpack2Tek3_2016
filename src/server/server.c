@@ -5,7 +5,7 @@ t_server	*create_server(t_configuration *config)
   t_server	*server;
 
   server = get_server_socket(config->port);
-  //server->client_list = NULL;
+  server->client_list = NULL;
   server->configuration = config;
   server->max_id = 1;
   server->gamemap = init_map(config->map);
@@ -64,10 +64,11 @@ void		handle_new_client(t_server *server, int *max)
 void game_tick(t_server *server)
 {
     t_clist		*tmp;
+
     tmp = server->client_list;
-    while (tmp != NULL)
+    while (tmp != NULL && tmp->client != NULL)
     {
-        update_position(tmp, server);
+        update_position(tmp->client, server);
         tmp = tmp->next;
     }
 }
