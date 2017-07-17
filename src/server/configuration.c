@@ -2,8 +2,6 @@
 
 void validate_configuration(t_configuration *config)
 {
-  if (config->gravity < 1)
-    my_error("Initial gravity must be at least 1.", -1);
   if (config->port < 1000)
     my_error("Unable to bind socket. Ports under 1000 are reserved.", -1);
   if (config->port > 65535)
