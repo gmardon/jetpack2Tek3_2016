@@ -47,9 +47,6 @@ sfSprite *Animate(sfSprite *sprite, sfTexture *texture1, sfTexture *texture2)
   return(sprite);
 }
 
-
-
-
 sfTexture *createTxture(char *pth)
 {
   sfTexture *texture;
@@ -97,7 +94,7 @@ int main()
   if (!font)
       return EXIT_FAILURE;
   text = sfText_create();
-  sfText_setString(text, "Hello SFML");
+  sfText_setString(text, "SCORE: 0");
   sfText_setFont(text, font);
   sfText_setCharacterSize(text, 25);
   sfText_setColor(text, sfYellow);
@@ -139,7 +136,7 @@ int main()
 
     if(sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
     	sfRenderWindow_close(window);
-    if(sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue && charVec.y >= 100)
+    if(sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue && charVec.y >= 70)
     {
       sfSprite_setTexture(charSprite, fly, sfTrue);
       charVec.y -= 0.5;
