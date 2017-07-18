@@ -9,6 +9,7 @@ t_server	*create_server(t_configuration *config)
   server->configuration = config;
   server->max_id = 1;
   server->gamemap = init_map(config->map);
+  server->state = SERVER_STATE_WAITING;
   FD_ZERO(&server->master);
   FD_SET(server->fd, &server->master);
   return (server);
@@ -62,10 +63,20 @@ void		handle_new_client(t_server *server, int *max)
 
 
 void game_tick(t_server *server)
-{
+{    
     t_clist		*tmp;
 
+    if (server->state == SERVER_STATE_WAITING)
+        return;
     tmp = server->client_list;
+    if (clients_length(server->client_list) == 1)
+    {
+        while (tmp != NULL && tmp->client != NULL)
+        {
+            send_message(tmp->client, "FINISH %i\n", tmp->client->id);
+            exit(0);
+        }
+    }
     while (tmp != NULL && tmp->client != NULL)
     {
         update_position(tmp->client, server);

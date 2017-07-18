@@ -24,8 +24,8 @@ int handle_ready(char *cmd, t_client *client, t_server *server)
         while (tmp != NULL && tmp->client != NULL)
         {  
             send_message(tmp->client, "START\n");
+            server->state = SERVER_STATE_STARTED;
             tmp = tmp->next;
         }
     }
-    
 }

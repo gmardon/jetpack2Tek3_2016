@@ -6,6 +6,8 @@
 #define CLIENT_STATE_UNDEFINED 0
 #define CLIENT_STATE_CONNECTED 1
 #define CLIENT_STATE_READY 2
+#define SERVER_STATE_WAITING 1
+#define SERVER_STATE_STARTED 2
 
 typedef struct s_gamemap
 {
@@ -49,6 +51,7 @@ typedef struct s_server
     t_clist		*client_list;
     t_configuration	*configuration;
     t_gamemap         *gamemap;
+    int state;
 }			    t_server;
 
 typedef int (*cmd_function)(char* buffer, t_client *client, t_server *server);

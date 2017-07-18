@@ -33,9 +33,13 @@ void update_position(t_client *client, t_server *server)
 {
   double	y;
   double	vel;
+  double	diff;
+  t_clist *tmp;
 
+  diff = (double) 5 * (double)25000;
+  diff /= (double) 100000000;
   client->velocity += server->configuration->gravity * -1 * (double)(client->jetpack * 2 - 1)
-    * (double)25000 / (double)1000000;
+    * (double)25000 / (double) 1000000;
   y = client->y;
   y += client->velocity * (double) 25000 / (double)1000000;
   vel = 0;
@@ -47,6 +51,13 @@ void update_position(t_client *client, t_server *server)
     vel = client->velocity;
   client->velocity = vel;
   client->y = y;
+  client->x += diff;
+  tmp = server->client_list;
+  while (tmp != NULL && tmp->client != NULL)
+  {
+    send_message(tmp->client, "PLAYER %d %f %f %d\n", client->id, client->x, client->y, client->score);
+    tmp = tmp->next;
+  }  
 }
 
 t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
@@ -61,6 +72,6 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
   client->state = CLIENT_STATE_CONNECTED;
   client->jetpack = 0;
   client->x = 0;
-  client->y = 0;
+  client->y = server->gamemap->height / 2;
   return (client);
 }
