@@ -31,9 +31,9 @@ void close_client(t_client *client, t_server *server)
 
 void update_position(t_client *client, t_server *server)
 {
-  double	y;
-  double	vel;
-  double	diff;
+  double y;
+  double vel;
+  double diff;
   t_clist *tmp;
 
   diff = (double) 5 * (double)25000;

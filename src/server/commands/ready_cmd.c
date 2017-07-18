@@ -5,27 +5,26 @@ void handle_ready(char *cmd, t_client *client, t_server *server)
     (void) cmd;
     t_clist	*tmp;
     int ready_count;
-    int not_ready;
 
     client->state = CLIENT_STATE_READY;
-    not_ready = 0;
     ready_count = 0;
     tmp = server->client_list;
     while (tmp != NULL && tmp->client != NULL)
     {
-        if (tmp->client->state == CLIENT_STATE_CONNECTED)
-            not_ready = 1;
-        else
+        if (tmp->client->state == CLIENT_STATE_READY)
             ready_count++;
         tmp = tmp->next;
     }
-    if (!not_ready && ready_count == 2)
+    tmp = server->client_list;
+    printf("%i (ready) / %i (connected)\n", ready_count, clients_length(tmp));
+    if (ready_count == 2)
     {
+        printf("SEND START\n");
+        server->state = SERVER_STATE_STARTED;
         tmp = server->client_list;
         while (tmp != NULL && tmp->client != NULL)
         {  
             send_message(tmp->client, "START\n");
-            server->state = SERVER_STATE_STARTED;
             tmp = tmp->next;
         }
     }
