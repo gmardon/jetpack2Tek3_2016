@@ -73,5 +73,6 @@ t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
   client->jetpack = 0;
   client->x = 0;
   client->y = server->gamemap->height / 2;
+  client->dead = 0;
   return (client);
 }

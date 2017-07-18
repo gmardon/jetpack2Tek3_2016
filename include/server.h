@@ -34,6 +34,7 @@ typedef struct s_client
     double          y;
     int             jetpack;
     double		    velocity;
+    char            dead;
 }               t_client;
 
 typedef struct		s_clist
@@ -72,6 +73,7 @@ int	remove_client(t_server *server, int fd);
 void send_message(t_client *client, char *msg, ...);
 void close_client(t_client *client, t_server *server);
 t_client *create_client(int socket, struct sockaddr_in in, t_server *server);
+void check_near_objects(t_client *client, t_server *server);
 
 // HANDLERS //
 int handle_id(char *cmd, t_client *client, t_server *server);

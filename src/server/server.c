@@ -80,6 +80,7 @@ void game_tick(t_server *server)
     while (tmp != NULL && tmp->client != NULL)
     {
         update_position(tmp->client, server);
+        check_near_objects(tmp->client, server);
         tmp = tmp->next;
     }
 }
