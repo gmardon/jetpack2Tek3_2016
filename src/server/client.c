@@ -37,7 +37,7 @@ void update_position(t_client *client, t_server *server)
   t_clist *tmp;
 
   diff = (double) 5 * (double)25000;
-  diff /= (double) 100000000;
+  diff /= (double) 1000000;
   client->velocity += server->configuration->gravity * -1 * (double)(client->jetpack * 2 - 1)
     * (double)25000 / (double) 1000000;
   y = client->y;

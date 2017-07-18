@@ -90,12 +90,15 @@ void start_server(t_server *server)
     int			max;
     fd_set		read_fds;
     t_clist		*tmp;
-    struct timeval	tv = {1, 0};
+    int milliseconds = 50;
 
     max = server->fd;
     printf("start on port %d, waiting for connections...\n", server->configuration->port);
     while (TRUE)
     {
+        struct timeval tv;
+        tv.tv_sec = milliseconds / 1000;
+        tv.tv_usec = (milliseconds % 1000) * 1000;
         read_fds = server->master;
         if (select(max + 1, &read_fds, NULL, NULL, &tv) == -1)
             my_error("select", -1);
