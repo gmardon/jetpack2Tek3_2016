@@ -1,6 +1,8 @@
 #include "server.h"
 
-int handle_fire(char *cmd, t_client *client, t_server *server)
+void handle_fire(char *cmd, t_client *client, t_server *server)
 {
-    client->jetpack =! client->jetpack;
+    (void) server;
+    (void) cmd;
+    client->jetpack =! client->jetpack;  
 }

@@ -1,7 +1,8 @@
 #include "server.h"
 
-int handle_map(char *cmd, t_client *client, t_server *server)
+void handle_map(char *cmd, t_client *client, t_server *server)
 {
+    (void) cmd;
     char *cells;
     int index;
     int y;

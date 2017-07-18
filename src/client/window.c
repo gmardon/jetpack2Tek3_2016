@@ -115,9 +115,9 @@ int main()
   if (!window)
       return EXIT_FAILURE;
 
-      texture = sfTexture_createFromFile("ressources/Background.png", NULL);
-      if (!texture)
-          return (EXIT_FAILURE);
+  texture = sfTexture_createFromFile("ressources/Background.png", NULL);
+  if (!texture)
+      return (EXIT_FAILURE);
 
   sprite0 = sfSprite_create();
   sprite1 = sfSprite_create();

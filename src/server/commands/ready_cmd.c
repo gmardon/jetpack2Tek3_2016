@@ -1,7 +1,8 @@
 #include "server.h"
 
-int handle_ready(char *cmd, t_client *client, t_server *server)
+void handle_ready(char *cmd, t_client *client, t_server *server)
 {
+    (void) cmd;
     t_clist	*tmp;
     int ready_count;
     int not_ready;

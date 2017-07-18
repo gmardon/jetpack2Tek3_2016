@@ -55,7 +55,7 @@ typedef struct s_server
     int state;
 }			    t_server;
 
-typedef int (*cmd_function)(char* buffer, t_client *client, t_server *server);
+typedef void (*cmd_function)(char* buffer, t_client *client, t_server *server);
 
 typedef struct	s_cmd
 {
@@ -70,14 +70,18 @@ t_configuration	*parse_args(int argc, char *argv[]);
 void start_server(t_server *server);
 int	add_client(t_server *server, t_client *client);
 int	remove_client(t_server *server, int fd);
+int	clients_length(t_clist *client_list);
 void send_message(t_client *client, char *msg, ...);
 void close_client(t_client *client, t_server *server);
 t_client *create_client(int socket, struct sockaddr_in in, t_server *server);
 void check_near_objects(t_client *client, t_server *server);
+t_gamemap *init_map(char *filepath);
+void handle_client_message(char *buffer, t_client *client, t_server *server);
+void update_position(t_client *client, t_server *server);
 
 // HANDLERS //
-int handle_id(char *cmd, t_client *client, t_server *server);
-int handle_ready(char *cmd, t_client *client, t_server *server);
-int handle_map(char *cmd, t_client *client, t_server *server);
-int handle_fire(char *cmd, t_client *client, t_server *server);
+void handle_id(char *cmd, t_client *client, t_server *server);
+void handle_ready(char *cmd, t_client *client, t_server *server);
+void handle_map(char *cmd, t_client *client, t_server *server);
+void handle_fire(char *cmd, t_client *client, t_server *server);
 #endif
