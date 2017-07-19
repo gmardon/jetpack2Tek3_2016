@@ -5,7 +5,7 @@
 ** Login   <nathan.bonnet@epitech.eu@epitech.eu>
 **
 ** Started on  Wed Jul 19 10:13:52 2017 Nathan
-** Last update Wed Jul 19 10:56:43 2017 Nathan
+** Last update Wed Jul 19 14:35:34 2017 Nathan
 */
 
 // #include <sys/types.h>
@@ -17,7 +17,32 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
 
+char *recv_server(int sock)
+{
+    char *buffer;
+    char buf[512];
+    int recv = 0;
+    fcntl(sock, F_SETFL, O_NONBLOCK);
+    if ((buffer = malloc(sizeof(char) * 2)) == NULL)
+    	return(NULL);
+    memset(buf, '\0', 512);
+
+    while (1) {
+        recv = read(sock, buf, 512);
+        buffer = realloc(buffer, strlen(buffer) + recv);
+        if (recv == -1)
+            return buffer;
+        strncat(buffer, buf, recv);
+        memset(buf, '\0', 512);
+        if (recv < 511)
+            break;
+    }
+
+    return buffer;
+}
 
 int socket_connect(const char *ip, const char *port_str)
 {
@@ -42,4 +67,19 @@ int socket_connect(const char *ip, const char *port_str)
     }
   	printf("%s\n", "OKAY");
     return fd;
+}
+
+
+
+char *send_server(int sock, char *str) {
+    char *buf;
+    while (1) {
+        write(sock, str, strlen(str));
+        buf = recv_server(sock);
+        if (!buf) {
+            break;
+        }
+    }
+    printf("%s\n", buf);
+    return buf;
 }
