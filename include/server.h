@@ -76,12 +76,13 @@ int	clients_length(t_clist *client_list);
 void send_message(t_client *client, char *msg, ...);
 void close_client(t_client *client, t_server *server);
 t_client *create_client(int socket, struct sockaddr_in in, t_server *server);
-void check_near_objects(t_client *client, t_server *server);
+void check_near_object(t_client *client, t_server *server);
 t_gamemap *init_map(char *filepath);
 void handle_client_message(char *buffer, t_client *client, t_server *server);
 void update_position(t_client *client, t_server *server);
 t_client *get_winner(t_server *server);
 void check_position(t_client *client, t_server *server);
+int	clients_alive_length(t_clist *client_list);
 
 // HANDLERS //
 void handle_id(char *cmd, t_client *client, t_server *server);

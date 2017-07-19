@@ -99,7 +99,7 @@ void game_tick(t_server *server)
     {
         check_position(tmp->client, server);
         update_position(tmp->client, server);
-        check_near_objects(tmp->client, server);
+        check_near_object(tmp->client, server);
         tmp = tmp->next;
     }
 }

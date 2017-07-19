@@ -4,7 +4,7 @@ void check_if_exist(char *filepath)
     if (fopen(filepath, "r") == NULL)
     {
         perror("Error opening file");
-        my_error(NULL, 1);
+        my_error(NULL, 84);
     }
 }
 
@@ -30,7 +30,7 @@ void read_map(char *filepath, t_gamemap *gamemap)
                 || map[index][subidx] == 'e' || map[index][subidx] == '_')
                 subidx++;
             else
-                my_error("Incorrect map.", -1);
+                my_error("Incorrect map.", 84);
             
         }
         index++;
@@ -67,7 +67,7 @@ t_gamemap *init_map(char *filepath)
     gamemap->height = 0;
     retreive_map_size(filepath, gamemap);
     if (gamemap->width == -1 && gamemap->height == 0)
-        my_error("Empty map file.", 1);
+        my_error("Empty map file.", 84);
     read_map(filepath, gamemap);
 
     return (gamemap);

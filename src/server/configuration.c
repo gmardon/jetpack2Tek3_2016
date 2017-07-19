@@ -3,11 +3,11 @@
 void validate_configuration(t_configuration *config)
 {
   if (config->port < 1000)
-    my_error("Unable to bind socket. Ports under 1000 are reserved.", -1);
+    my_error("Unable to bind socket. Ports under 1000 are reserved.", 84);
   if (config->port > 65535)
-    my_error("Illegal port number.", -1);
+    my_error("Illegal port number.", 84);
   if (config->map == NULL)
-    my_error("You must provide a map file.", -1);
+    my_error("You must provide a map file.", 84);
 }
 
 t_configuration		*init_configuration()
