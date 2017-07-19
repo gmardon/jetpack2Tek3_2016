@@ -2,7 +2,6 @@
 #define CLIENT_H
 
 #include <netinet/in.h>
-#include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 
 typedef struct		s_client
