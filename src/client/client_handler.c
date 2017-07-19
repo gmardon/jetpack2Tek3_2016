@@ -2,8 +2,8 @@
 
 static t_cmd g_cmd_tab[] =
   {
-    /*{"ID", &handle_id},
-    {"READY", &handle_ready},
+    {"ID", &handle_id},
+    /*{"READY", &handle_ready},
     {"MAP", &handle_map},
     {"FIRE", &handle_fire},*/
     {"", 0}

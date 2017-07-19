@@ -33,4 +33,8 @@ t_configuration	*parse_args(int argc, char *argv[]);
 void handle_message(char *buffer, t_client *client);
 t_client	*create_client(t_configuration *config);
 void connect_client(t_client *client);
+void start_client(t_client *client);
+
+// CMDS // 
+void handle_id(char *cmd, t_client *client);
 #endif

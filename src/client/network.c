@@ -39,5 +39,4 @@ void connect_client(t_client *client)
             my_error("Cannot connect!\n", 84);
         my_error("Cannot connect!\n", 84);
     }
-    return client;
 }

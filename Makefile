@@ -29,6 +29,7 @@ SRC_CLIENT			=		src/client/window.c \
 							src/client/main.c \
 							src/client/configuration.c \
 							src/client/client_handler.c \
+							src/client/commands/id_cmd.c \
 							$(SRC_COMMON)
 
 OBJ_SERVER			=		$(SRC_SERVER:.c=.o)
