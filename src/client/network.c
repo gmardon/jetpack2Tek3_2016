@@ -5,7 +5,7 @@
 ** Login   <nathan.bonnet@epitech.eu@epitech.eu>
 **
 ** Started on  Wed Jul 19 10:13:52 2017 Nathan
-** Last update Wed Jul 19 10:19:21 2017 Nathan
+** Last update Wed Jul 19 10:56:43 2017 Nathan
 */
 
 // #include <sys/types.h>
@@ -42,13 +42,4 @@ int socket_connect(const char *ip, const char *port_str)
     }
   	printf("%s\n", "OKAY");
     return fd;
-}
-
-
-int main(int ac, char **av)
-{
-  int sckt;
-  sckt = socket_connect(av[1], av[2]);
-  if (sckt < 0)
-    printf("%s\n", "ERROR");
 }
