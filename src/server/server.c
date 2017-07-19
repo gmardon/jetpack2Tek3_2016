@@ -20,6 +20,8 @@ void	handle_io(t_client *client, t_server *server)
 {
   char	*buffer;
   int	rc;
+  char **messages;
+  int index;
 
   buffer = my_malloc(BUFFER_SIZE);
   memset(buffer, 0, BUFFER_SIZE);
@@ -37,9 +39,15 @@ void	handle_io(t_client *client, t_server *server)
     }
   if (buffer[rc - 1] == '\n')
     buffer[rc - 1] = 0;
-  printf("< %s\n", buffer);
-  handle_client_message(buffer, client, server);
-}
+  messages = strsplit(buffer, "\n");
+  index = 0;
+  while (messages[index])
+    {
+        printf("< %s\n", messages[index]);
+        handle_client_message(messages[index], client, server);
+        index++;
+    }
+  }
 
 void		handle_new_client(t_server *server, int *max)
 {
