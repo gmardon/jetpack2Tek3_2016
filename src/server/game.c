@@ -8,7 +8,7 @@ t_client *get_winner(t_server *server)
 
     tmp = server->client_list;
     best_player = NULL;
-    best_score = -1;
+    best_score = 0;
     while (tmp != NULL && tmp->client != NULL)
     {  
         printf("%i from %i\n", tmp->client->score, tmp->client->id);
@@ -55,7 +55,6 @@ void check_near_object(int x, int y, t_client *client, t_server *server)
         }
     } else if (cell == 'e' && x == client->x && y == client->y) {
         tmp = server->client_list;
-        printf("player %i hurt something...\n", client->id);
         client->dead = 1;
         if (server->winner == NULL)
             server->winner = get_winner(server);

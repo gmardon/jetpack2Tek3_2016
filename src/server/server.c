@@ -78,14 +78,17 @@ void game_tick(t_server *server)
     if (server->state == SERVER_STATE_WAITING)
         return;
     if (clients_alive_length(server->client_list) == 1 || server->state == SERVER_STATE_FINISHED)
-    {
-        if (server->winner == NULL)
+    {           
+        if (server->winner == NULL && clients_alive_length(server->client_list) == 1)
             server->winner = server->client_list->client;
 
         tmp = server->client_list;
         while (tmp != NULL && tmp->client != NULL)
         {
-            send_message(tmp->client, "FINISH %i\n", server->winner->id);
+            if (server->winner)
+                send_message(tmp->client, "FINISH %i\n", server->winner->id);
+            else
+                send_message(tmp->client, "FINISH -1\n");
             close_client(tmp->client, server);
             tmp = tmp->next;
         }
