@@ -7,6 +7,8 @@
 #define CLIENT_STATE_READY 2
 #define SERVER_STATE_WAITING 1
 #define SERVER_STATE_STARTED 2
+#define SERVER_STATE_FINISHED 3
+#define SERVER_STATE_END 3
 
 typedef struct s_gamemap
 {
@@ -51,7 +53,8 @@ typedef struct s_server
     t_clist		*client_list;
     t_configuration	*configuration;
     t_gamemap         *gamemap;
-    int state;
+    int             state;
+    t_client        *winner;
 }			    t_server;
 
 typedef void (*cmd_function)(char* buffer, t_client *client, t_server *server);
@@ -77,6 +80,8 @@ void check_near_objects(t_client *client, t_server *server);
 t_gamemap *init_map(char *filepath);
 void handle_client_message(char *buffer, t_client *client, t_server *server);
 void update_position(t_client *client, t_server *server);
+t_client *get_winner(t_server *server);
+void check_position(t_client *client, t_server *server);
 
 // HANDLERS //
 void handle_id(char *cmd, t_client *client, t_server *server);

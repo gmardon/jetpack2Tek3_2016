@@ -36,6 +36,5 @@ t_server	*get_server_socket(int port)
     my_error("Can't bind socket", -1);
   if ((listen(server->fd, 10)) == -1)
     my_error("Can't listen the socket", -1);
-  set_non_blocking(server->fd);
   return (server);
 }

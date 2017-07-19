@@ -17,7 +17,6 @@
 
 void my_error(char *msg, int exit_code);
 void *my_malloc(int size);
-void set_non_blocking(int socket);
 char *get_client_addr(struct sockaddr_in client);
 int get_client_port(struct sockaddr_in client);
 char **strsplit(const char* str, const char* delim);

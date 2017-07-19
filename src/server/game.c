@@ -3,20 +3,45 @@
 t_client *get_winner(t_server *server)
 {
     t_clist	*tmp;
+    int best_score;
+    t_client *best_player;
+
     tmp = server->client_list;
+    best_player = NULL;
+    best_score = -1;
     while (tmp != NULL && tmp->client != NULL)
     {  
-        if (tmp->client->dead == 0)
-            return tmp->client;
+        printf("%i from %i\n", tmp->client->score, tmp->client->id);
+        if (tmp->client->dead == 1)
+        {
+            printf("%i is dead\n", tmp->client->id);
+            tmp = server->client_list;
+            while (tmp != NULL && tmp->client != NULL)
+            {
+                if (tmp->client->dead == 0)
+                    return (tmp->client);
+                
+                tmp = tmp->next;
+            }
+        }
+        else if (best_score < tmp->client->score)
+        {
+            best_player = tmp->client;
+            best_score = tmp->client->score;
+        }
+        tmp = tmp->next;
     }
-    return (NULL);
+    return (best_player);
 }
 
 void check_near_object(int x, int y, t_client *client, t_server *server)
 {
     t_clist	*tmp;
     char cell;
+    t_client winner;
     
+    if (x > server->gamemap->width || y > server->gamemap->height)
+        return;
     cell = server->gamemap->cells[y][x];
     if (cell == 'c')
     {
@@ -30,13 +55,11 @@ void check_near_object(int x, int y, t_client *client, t_server *server)
         }
     } else if (cell == 'e' && x == client->x && y == client->y) {
         tmp = server->client_list;
+        printf("player %i hurt something...\n", client->id);
         client->dead = 1;
-        while (tmp != NULL && tmp->client != NULL)
-        {  
-            send_message(tmp->client, "FINISH %i\n", get_winner(server)->id, x, y);
-            close_client(tmp->client, server);
-            tmp = tmp->next;
-        }
+        if (server->winner == NULL)
+            server->winner = get_winner(server);
+        server->state = SERVER_STATE_FINISHED;
     }
 }
 
@@ -56,4 +79,15 @@ void check_near_objects(t_client *client, t_server *server)
     check_near_object(x + 1, y - 1, client, server);
     check_near_object(x + 1, y, client, server);
     check_near_object(x + 1, y + 1, client, server);
+}
+
+void check_position(t_client *client, t_server *server)
+{
+    t_clist	*tmp;
+
+    if (client->x > server->gamemap->width && server->winner == NULL)
+    {
+        server->winner = get_winner(server);
+        server->state = SERVER_STATE_FINISHED;
+    }
 }

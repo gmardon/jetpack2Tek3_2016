@@ -39,7 +39,6 @@ int	remove_client(t_server *server, int fd)
   else
     old->next = tmp->next;
   free(tmp->client);
-  free(tmp);
   return (1);
 }
 
@@ -54,6 +53,23 @@ int	clients_length(t_clist *client_list)
     {
       tmp = tmp->next;
       i++;
+    }
+  return (i);
+}
+
+int	clients_alive_length(t_clist *client_list)
+{
+  t_clist	*tmp;
+  int		i;
+
+  i = 0;
+  tmp = client_list;
+  while (tmp != NULL)
+    {
+      if (tmp->client->dead == 0)
+        i++;
+      tmp = tmp->next;
+      
     }
   return (i);
 }

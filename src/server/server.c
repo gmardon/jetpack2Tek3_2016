@@ -10,6 +10,7 @@ t_server	*create_server(t_configuration *config)
   server->max_id = 1;
   server->gamemap = init_map(config->map);
   server->state = SERVER_STATE_WAITING;
+  server->winner = NULL;
   FD_ZERO(&server->master);
   FD_SET(server->fd, &server->master);
   return (server);
@@ -68,17 +69,24 @@ void game_tick(t_server *server)
 
     if (server->state == SERVER_STATE_WAITING)
         return;
-    tmp = server->client_list;
-    if (clients_length(server->client_list) == 1)
+    if (clients_alive_length(server->client_list) == 1 || server->state == SERVER_STATE_FINISHED)
     {
+        if (server->winner == NULL)
+            server->winner = server->client_list->client;
+
+        tmp = server->client_list;
         while (tmp != NULL && tmp->client != NULL)
         {
-            send_message(tmp->client, "FINISH %i\n", tmp->client->id);
-            exit(0);
+            send_message(tmp->client, "FINISH %i\n", server->winner->id);
+            close_client(tmp->client, server);
+            tmp = tmp->next;
         }
+        return;
     }
+    tmp = server->client_list;
     while (tmp != NULL && tmp->client != NULL)
     {
+        check_position(tmp->client, server);
         update_position(tmp->client, server);
         check_near_objects(tmp->client, server);
         tmp = tmp->next;

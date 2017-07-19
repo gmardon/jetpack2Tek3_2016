@@ -42,6 +42,8 @@ void retreive_map_size(char *filepath, t_gamemap *gamemap)
 t_gamemap *init_map(char *filepath)
 {
     t_gamemap *gamemap = my_malloc(sizeof(t_gamemap));
+    gamemap->width = 0;
+    gamemap->height = 0;
     retreive_map_size(filepath, gamemap);
     read_map(filepath, gamemap);
 

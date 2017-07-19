@@ -16,7 +16,7 @@ t_configuration		*init_configuration()
 
   config = my_malloc(sizeof(t_configuration));
   config->port = 4242;
-  config->gravity = 100;
+  config->gravity = 1;
   config->map = NULL;
   return (config);
 }
