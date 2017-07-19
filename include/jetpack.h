@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#define TRUE 1
+#define FALSE 0
 #define BUFFER_SIZE 2048
 
 void my_error(char *msg, int exit_code);

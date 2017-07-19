@@ -19,39 +19,25 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "server.h"
 #include "client.h"
 
-
-t_client socket_connect(const char *ip, const char *port_str)
+void connect_client(t_client *client)
 {
-  	t_client client;
     struct protoent *pe;
-    int port;
-    port = atoi(port_str);
+
     pe = getprotobyname("TCP");
     if (!pe)
         exit(84);
-    client.fd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
-    if (client.fd == -1)
-    exit(84);
-    client.in.sin_family = AF_INET;
-    client.in.sin_port = htons(port);
-    client.in.sin_addr.s_addr = inet_addr((strcmp(ip, "localhost") == 0 ? "127.0.0.1" : ip));
-    if (connect(client.fd, (struct sockaddr *)&client.in, sizeof(client.in)) == -1) {
-        if (close(client.fd) == -1)
-        	exit(84);
-        exit(84);
+    client->fd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
+    if (client->fd == -1)
+        my_error("Cannot create socket!\n", 84);
+    client->in.sin_family = AF_INET;
+    client->in.sin_port = htons(client->configuration->port);
+    client->in.sin_addr.s_addr = inet_addr((strcmp(client->configuration->host, "localhost") == 0 ? "127.0.0.1" : client->configuration->host));
+    if (connect(client->fd, (struct sockaddr *)&client->in, sizeof(client->in)) == -1) {
+        if (close(client->fd) == -1)
+            my_error("Cannot connect!\n", 84);
+        my_error("Cannot connect!\n", 84);
     }
-  	printf("%s\n", "OKAY");
     return client;
-}
-
-int main(int ac, char **av)
-{
-  if(ac == 3)
-  {
-      socket_connect(av[1], av[2]);
-      makeWindow();
-  }
 }

@@ -1,7 +1,5 @@
 #ifndef _SERVER_H_
 #define _SERVER_H_
-#define TRUE 1
-#define FALSE 0
 #include "jetpack.h"
 #define CLIENT_STATE_CONNECTED 1
 #define CLIENT_STATE_READY 2
