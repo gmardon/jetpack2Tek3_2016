@@ -1,3 +1,13 @@
+/*
+** get_next_line.c for getnextline in /home/bonnet_n/tek2/rendu/Tek2/synthesis/jetpack2Tek3_2016/src/
+**
+** Made by bonnet_n
+** Login   <nathan.bonnet@epitech.eu@epitech.eu>
+**
+** Started on  Wed Jul 19 16:28:31 2017 nathan.bonnet@epitech.eu
+** Last update Wed Jul 19 16:36:18 2017 nathan.bonnet@epitech.eu
+*/
+
 #include "jetpack.h"
 
 char	*right_padding(char *data, int base_size, int requested_size)

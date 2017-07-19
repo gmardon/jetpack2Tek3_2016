@@ -1,3 +1,13 @@
+/*
+** server.c for server in /home/bonnet_n/tek2/rendu/Tek2/synthesis/jetpack2Tek3_2016/src/server/
+**
+** Made by nathan.bonnet@epitech.eu
+** Login   <nathan.bonnet@epitech.eu@epitech.eu>
+**
+** Started on  Wed Jul 19 17:39:29 2017 nathan.bonnet@epitech.eu
+** Last update Wed Jul 19 17:48:38 2017 nathan.bonnet@epitech.eu
+*/
+
 #include "server.h"
 
 t_server	*create_server(t_configuration *config)
@@ -20,8 +30,8 @@ void	handle_io(t_client *client, t_server *server)
 {
   char	*buffer;
   int	rc;
-  char **messages;
-  int index;
+  char	**messages;
+  int	index;
 
   buffer = my_malloc(BUFFER_SIZE);
   memset(buffer, 0, BUFFER_SIZE);
@@ -51,56 +61,57 @@ void	handle_io(t_client *client, t_server *server)
 
 void		handle_new_client(t_server *server, int *max)
 {
-    t_client	*client;
+  t_client	*client;
 
-    client = accept_client(server);
-    FD_SET(client->fd, &server->master);
-    if (client->fd > *max)
-        *max = client->fd;
+  client = accept_client(server);
+  FD_SET(client->fd, &server->master);
+  if (client->fd > *max)
+    *max = client->fd;
 
-    if (clients_length(server->client_list) >= 2)
-        {
-            send_message(client, "MAX USER REACHED\n");
-            close_client(client, server);
-            return;
-        }
-    else
-        add_client(server, client);
-    printf("New client connected from <%s:%d>\n",
-        get_client_addr(client->in), get_client_port(client->in));
+  if (clients_length(server->client_list) >= 2)
+    {
+      send_message(client, "MAX USER REACHED\n");
+      close_client(client, server);
+      return;
+    }
+  else
+    add_client(server, client);
+  printf("New client connected from <%s:%d>\n",
+	 get_client_addr(client->in), get_client_port(client->in));
 }
 
 
 void game_tick(t_server *server)
-{    
-    t_clist		*tmp;
+{
+  t_clist	*tmp;
 
-    if (server->state == SERVER_STATE_WAITING)
-        return;
-    if (clients_alive_length(server->client_list) == 1 || server->state == SERVER_STATE_FINISHED)
-    {           
-        if (server->winner == NULL && clients_alive_length(server->client_list) == 1)
-            server->winner = server->client_list->client;
-
-        tmp = server->client_list;
-        while (tmp != NULL && tmp->client != NULL)
-        {
-            if (server->winner)
-                send_message(tmp->client, "FINISH %i\n", server->winner->id);
-            else
-                send_message(tmp->client, "FINISH -1\n");
-            close_client(tmp->client, server);
-            tmp = tmp->next;
-        }
-        return;
-    }
-    tmp = server->client_list;
-    while (tmp != NULL && tmp->client != NULL)
+  if (server->state == SERVER_STATE_WAITING)
+    return;
+  if (alive_length(server->client_list) == 1 ||
+  server->state == SERVER_STATE_FINISHED)
     {
-        check_position(tmp->client, server);
-        update_position(tmp->client, server);
-        check_near_object(tmp->client, server);
-        tmp = tmp->next;
+      if (server->winner == NULL && alive_length(server->client_list) == 1)
+	server->winner = server->client_list->client;
+
+      tmp = server->client_list;
+      while (tmp != NULL && tmp->client != NULL)
+        {
+	  if (server->winner)
+	    send_message(tmp->client, "FINISH %i\n", server->winner->id);
+	  else
+	    send_message(tmp->client, "FINISH -1\n");
+	  close_client(tmp->client, server);
+	  tmp = tmp->next;
+        }
+      return;
+    }
+  tmp = server->client_list;
+  while (tmp != NULL && tmp->client != NULL)
+    {
+      check_position(tmp->client, server);
+      update_position(tmp->client, server);
+      check_near_object(tmp->client, server);
+      tmp = tmp->next;
     }
 }
 

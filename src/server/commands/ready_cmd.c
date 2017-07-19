@@ -1,3 +1,13 @@
+/*
+** ready_cmd.c for id_cmd in /home/bonnet_n/tek2/rendu/Tek2/synthesis/jetpack2Tek3_2016/src/server/commands/
+**
+** Made by nathan.bonnet@epitech.eu
+** Login   <nathan.bonnet@epitech.eu@epitech.eu>
+**
+** Started on  Wed Jul 19 17:40:55 2017 nathan.bonnet@epitech.eu
+** Last update Wed Jul 19 17:41:02 2017 nathan.bonnet@epitech.eu
+*/
+
 #include "server.h"
 
 void handle_ready(char *cmd, t_client *client, t_server *server)
@@ -16,14 +26,12 @@ void handle_ready(char *cmd, t_client *client, t_server *server)
         tmp = tmp->next;
     }
     tmp = server->client_list;
-    printf("%i (ready) / %i (connected)\n", ready_count, clients_length(tmp));
     if (ready_count == 2)
     {
-        printf("SEND START\n");
         server->state = SERVER_STATE_STARTED;
         tmp = server->client_list;
         while (tmp != NULL && tmp->client != NULL)
-        {  
+        {
             send_message(tmp->client, "START\n");
             tmp = tmp->next;
         }

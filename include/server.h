@@ -80,7 +80,7 @@ void handle_client_message(char *buffer, t_client *client, t_server *server);
 void update_position(t_client *client, t_server *server);
 t_client *get_winner(t_server *server);
 void check_position(t_client *client, t_server *server);
-int	clients_alive_length(t_clist *client_list);
+int	alive_length(t_clist *client_list);
 
 // HANDLERS //
 void handle_id(char *cmd, t_client *client, t_server *server);

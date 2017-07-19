@@ -1,6 +1,16 @@
+/*
+** configuration.c for configuration in /home/bonnet_n/tek2/rendu/Tek2/synthesis/jetpack2Tek3_2016/src/server/
+**
+** Made by nathan.bonnet@epitech.eu
+** Login   <nathan.bonnet@epitech.eu@epitech.eu>
+**
+** Started on  Wed Jul 19 17:30:40 2017 nathan.bonnet@epitech.eu
+** Last update Wed Jul 19 17:30:47 2017 nathan.bonnet@epitech.eu
+*/
+
 #include "server.h"
 
-void validate_configuration(t_configuration *config)
+void	validate_configuration(t_configuration *config)
 {
   if (config->port < 1000)
     my_error("Unable to bind socket. Ports under 1000 are reserved.", 84);

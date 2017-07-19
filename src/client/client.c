@@ -1,3 +1,13 @@
+/*
+** client.c for client in /home/bonnet_n/tek2/rendu/Tek2/synthesis/jetpack2Tek3_2016/src/client/
+**
+** Made by nathan.bonnet@epitech.eu
+** Login   <nathan.bonnet@epitech.eu@epitech.eu>
+**
+** Started on  Wed Jul 19 16:57:08 2017 nathan.bonnet@epitech.eu
+** Last update Wed Jul 19 16:57:14 2017 nathan.bonnet@epitech.eu
+*/
+
 #include "client.h"
 
 void send_message(t_client *client, char *msg, ...)
@@ -23,7 +33,7 @@ void close_client(t_client *client)
     {
       close(client->fd);
     }
-  printf("Client disconnected <%s:%d>\n", 
+  printf("Client disconnected <%s:%d>\n",
         get_client_addr(client->in), get_client_port(client->in));
 }
 

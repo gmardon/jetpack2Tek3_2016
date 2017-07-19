@@ -1,6 +1,26 @@
+/*
+** client.c for client in /home/bonnet_n/tek2/rendu/Tek2/synthesis/jetpack2Tek3_2016/src/server/
+**
+** Made by nathan.bonnet@epitech.eu
+** Login   <nathan.bonnet@epitech.eu@epitech.eu>
+**
+** Started on  Wed Jul 19 16:57:29 2017 nathan.bonnet@epitech.eu
+** Last update Wed Jul 19 17:07:10 2017 nathan.bonnet@epitech.eu
+*/
+
 #include "server.h"
 
-void send_message(t_client *client, char *msg, ...)
+void normFnct(t_clist *tmp, t_client *client)
+{
+  while (tmp != NULL && tmp->client != NULL)
+  {
+    send_message(tmp->client, "PLAYER %d %f %f %d\n", client->id, client->x,
+     client->y, client->score);
+    tmp = tmp->next;
+  }
+}
+
+void		send_message(t_client *client, char *msg, ...)
 {
   char		*content;
   int		len;
@@ -17,7 +37,7 @@ void send_message(t_client *client, char *msg, ...)
     }
 }
 
-void close_client(t_client *client, t_server *server)
+void	close_client(t_client *client, t_server *server)
 {
   if (client->fd > 0)
     {
@@ -25,21 +45,21 @@ void close_client(t_client *client, t_server *server)
       close(client->fd);
       remove_client(server, client->fd);
     }
-  printf("Client disconnected <%s:%d>\n", 
+  printf("Client disconnected <%s:%d>\n",
         get_client_addr(client->in), get_client_port(client->in));
 }
 
-void update_position(t_client *client, t_server *server)
+void		update_position(t_client *client, t_server *server)
 {
-  double y;
-  double vel;
-  double diff;
-  t_clist *tmp;
+  double	y;
+  double	vel;
+  double	diff;
+  t_clist	*tmp;
 
   diff = (double) 5 * (double)25000;
   diff /= (double) 400000;
-  client->velocity += server->configuration->gravity * -1 * (double)(client->jetpack * 2 - 1)
-    * (double)25000 / (double) 1000000;
+  client->velocity += server->configuration->gravity * -1 *
+  (double)(client->jetpack * 2 - 1) * (double)25000 / (double) 1000000;
   y = client->y;
   y += client->velocity * (double) 25000 / (double)1000000;
   vel = 0;
@@ -53,16 +73,13 @@ void update_position(t_client *client, t_server *server)
   client->y = y;
   client->x += diff;
   tmp = server->client_list;
-  while (tmp != NULL && tmp->client != NULL)
-  {
-    send_message(tmp->client, "PLAYER %d %f %f %d\n", client->id, client->x, client->y, client->score);
-    tmp = tmp->next;
-  }  
+  normFnct(tmp, client);
 }
+// fonction trop longue
 
-t_client *create_client(int socket, struct sockaddr_in in, t_server *server)
+t_client	*create_client(int socket, struct sockaddr_in in, t_server *server)
 {
-  t_client *client;
+  t_client	*client;
 
   client = my_malloc(sizeof(t_client));
   client->fd = socket;
