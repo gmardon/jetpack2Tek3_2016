@@ -68,8 +68,19 @@ sfTexture *createTxture(char *pth)
   return(texture);
 }
 
+void windowThread(t_client *client)
+{
+
+}
+
+void initWindow()
+{
+  
+}
+
 int makeWindow(t_client *client)
 {
+  sfThread* rendering_thread = sfThread_Create(windowThread, client);
   sfVideoMode mode = {1690, 600, 30};
   sfRenderWindow* window;
   sfSprite	*sprite0;
@@ -131,8 +142,6 @@ int makeWindow(t_client *client)
   sfSprite_setTexture(sprite2, texture, sfTrue);
   sfSprite_setTexture(sprite3, texture, sfTrue);
   sfSprite_setTexture(sprite4, texture, sfTrue);
-
-
 
   // /* Start the game loop */
   while (sfRenderWindow_isOpen(window))

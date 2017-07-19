@@ -3,6 +3,8 @@
 #include "jetpack.h"
 #include <netinet/in.h>
 #include <SFML/Graphics.h>
+#include <SFML/Window.h>
+#include <SFML/System.h>
 
 typedef struct s_configuration
 {
@@ -34,7 +36,8 @@ void handle_message(char *buffer, t_client *client);
 t_client	*create_client(t_configuration *config);
 void connect_client(t_client *client);
 void start_client(t_client *client);
-void	handle_io(t_client *client);
+void handle_io(t_client *client);
+void close_client(t_client *client);
 
 // CMDS // 
 void handle_id(char **cmd, t_client *client);
