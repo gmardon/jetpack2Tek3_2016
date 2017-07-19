@@ -5,7 +5,7 @@
 ** Login   <nathan.bonnet@epitech.eu@epitech.eu>
 **
 ** Started on  Tue Jul 18 15:15:53 2017 Nathan
-** Last update Tue Jul 18 15:16:00 2017 Nathan
+** Last update Wed Jul 19 14:47:43 2017 Nathan
 */
 
 
@@ -68,7 +68,7 @@ sfTexture *createTxture(char *pth)
   return(texture);
 }
 
-int main()
+int makeWindow()
 {
   sfVideoMode mode = {1690, 600, 30};
   sfRenderWindow* window;

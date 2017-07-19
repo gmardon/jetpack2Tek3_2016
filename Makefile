@@ -24,6 +24,7 @@ SRC_SERVER			=		src/server/main.c		\
 							$(SRC_COMMON)
 
 SRC_CLIENT			=		src/client/window.c \
+										src/client/network.c \
 							$(SRC_COMMON)
 
 OBJ_SERVER			=		$(SRC_SERVER:.c=.o)
