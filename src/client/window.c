@@ -68,7 +68,7 @@ sfTexture *createTxture(char *pth)
   return(texture);
 }
 
-int makeWindow()
+int makeWindow(t_client *client)
 {
   sfVideoMode mode = {1690, 600, 30};
   sfRenderWindow* window;
@@ -137,6 +137,7 @@ int makeWindow()
   // /* Start the game loop */
   while (sfRenderWindow_isOpen(window))
   {
+    handle_io(client);
     /* Process events */
     while (sfRenderWindow_pollEvent(window, &event))
     {

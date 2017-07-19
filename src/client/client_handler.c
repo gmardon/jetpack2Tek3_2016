@@ -20,7 +20,7 @@ void handle_message(char *buffer, t_client *client)
     {
       if (strncmp(g_cmd_tab[index].cmd, message[0], strlen(message[0])) == 0) 
       {
-        (g_cmd_tab[index].handler)(buffer, client);
+        (g_cmd_tab[index].handler)(message, client);
         break;
       }
       index++;

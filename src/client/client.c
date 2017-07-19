@@ -40,6 +40,6 @@ t_client	*create_client(t_configuration *config)
 void start_client(t_client *client)
 {
     connect_client(client);
-    send_message(client, "ID");
-    makeWindow();
+    send_message(client, "ID\n");
+    makeWindow(client);
 }

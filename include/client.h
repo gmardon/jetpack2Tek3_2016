@@ -19,7 +19,7 @@ typedef struct		s_client
 }			t_client;
 
 
-typedef void (*cmd_function)(char* buffer, t_client *client);
+typedef void (*cmd_function)(char** buffer, t_client *client);
 
 typedef struct	s_cmd
 {
@@ -34,7 +34,8 @@ void handle_message(char *buffer, t_client *client);
 t_client	*create_client(t_configuration *config);
 void connect_client(t_client *client);
 void start_client(t_client *client);
+void	handle_io(t_client *client);
 
 // CMDS // 
-void handle_id(char *cmd, t_client *client);
+void handle_id(char **cmd, t_client *client);
 #endif

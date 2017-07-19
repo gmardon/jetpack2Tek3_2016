@@ -40,3 +40,36 @@ void connect_client(t_client *client)
         my_error("Cannot connect!\n", 84);
     }
 }
+
+void	handle_io(t_client *client)
+{
+  char	*buffer;
+  int	rc;
+  char **messages;
+  int index;
+
+  buffer = my_malloc(BUFFER_SIZE);
+  memset(buffer, 0, BUFFER_SIZE);
+  rc = recv(client->fd, buffer, BUFFER_SIZE, 0);
+  if (rc < 0)
+    {
+      if (errno != EWOULDBLOCK)
+	    close_client(client);
+      return;
+    }
+  if (rc == 0)
+    {
+      close_client(client);
+      return;
+    }
+  if (buffer[rc - 1] == '\n')
+    buffer[rc - 1] = 0;
+  messages = strsplit(buffer, "\n");
+  index = 0;
+  while (messages[index])
+    {
+        printf("< %s\n", messages[index]);
+        handle_message(messages[index], client);
+        index++;
+    }
+  }
